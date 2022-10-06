@@ -1,8 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
+const { errors } = require('celebrate');
+// const routes = require('./routes/index');
+const centralErrorHandler = require('./middlewares/central-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
@@ -21,6 +25,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // подключаем логгер запросов
 app.use(requestLogger);
+
+// Код для краш-теста (сервер должен подняться после падения сам, исп. pm2)
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
+// подключаем роуты
+// app.use(routes);
+
+// подключаем логгер ошибок
+app.use(errorLogger);
+
+// централизованная обработка ошибок
+app.use(errors());
+app.use(centralErrorHandler);
 
 // Последовательное подключение: сначала база, затем порт
 async function main() {
