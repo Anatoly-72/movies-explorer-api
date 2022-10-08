@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const { errors } = require('celebrate');
-// const routes = require('./routes/index');
+const routes = require('./routes/index');
 const centralErrorHandler = require('./middlewares/central-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -34,7 +34,7 @@ app.get('/crash-test', () => {
 });
 
 // подключаем роуты
-// app.use(routes);
+app.use(routes);
 
 // подключаем логгер ошибок
 app.use(errorLogger);

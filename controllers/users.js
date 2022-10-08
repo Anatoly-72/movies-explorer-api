@@ -37,23 +37,23 @@ module.exports.login = (req, res, next) => {
 };
 
 // GET /users/:userId — возвращаем пользователя по _id
-// module.exports.getUsersById = (req, res, next) => {
-//   User.findById(req.params.userId)
-//     .then((user) => {
-//       if (user) {
-//         res.send({ data: user });
-//       } else {
-//         throw new NotFoundError('Пользователь не найден');
-//       }
-//     })
-//     .catch((err) => {
-//       if (err.name === 'CastError') {
-//         next(new BadRequestError('Ошибка валидации данных'));
-//       } else {
-//         next(err);
-//       }
-//     });
-// };
+module.exports.getUsersById = (req, res, next) => {
+  User.findById(req.params.userId)
+    .then((user) => {
+      if (user) {
+        res.send({ data: user });
+      } else {
+        throw new NotFoundError('Пользователь не найден');
+      }
+    })
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadRequestError('Ошибка валидации данных'));
+      } else {
+        next(err);
+      }
+    });
+};
 
 // GET /users/me — возвращаем информацию о текущем пользователе
 module.exports.getCurrentUser = (req, res, next) => {
