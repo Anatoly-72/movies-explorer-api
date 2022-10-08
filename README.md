@@ -17,6 +17,6 @@
 
 ## Ссылки
 
-IP 84.201.157.181
-Backend: https://api.anatoly72.nomoredomains.icu
+IP 84.201.157.181\
+Backend: https://api.anatoly72.nomoredomains.icu\
 Репозиторий: https://github.com/Anatoly-72/movies-explorer-api
