@@ -11,13 +11,6 @@ const { STATUS_OK, SALT_ROUNDS } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-// GET /users — возвращаем всех пользователей
-// module.exports.getUsers = (req, res, next) => {
-//   User.find({})
-//     .then((result) => res.send(result))
-//     .catch(next);
-// };
-
 // login (/POST) — авторизация(залогинивание) пользователя по email и password
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
@@ -33,25 +26,6 @@ module.exports.login = (req, res, next) => {
     })
     .catch(() => {
       next(new BadAuthError('Неправильные почта или пароль.'));
-    });
-};
-
-// GET /users/:userId — возвращаем пользователя по _id
-module.exports.getUsersById = (req, res, next) => {
-  User.findById(req.params.userId)
-    .then((user) => {
-      if (user) {
-        res.send({ data: user });
-      } else {
-        throw new NotFoundError('Пользователь не найден');
-      }
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new BadRequestError('Ошибка валидации данных'));
-      } else {
-        next(err);
-      }
     });
 };
 
