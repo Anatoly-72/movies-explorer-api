@@ -11,7 +11,7 @@ const { STATUS_OK, SALT_ROUNDS } = require('../utils/constants');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
-// login (/POST) — авторизация(залогинивание) пользователя по email и password
+// POST /signin — авторизация(залогинивание) пользователя по email и password
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -70,13 +70,13 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-// PATCH /users/me — обновляем профиль
+// PATCH /users/me — обновляем данные пользователя
 module.exports.updateProfile = (req, res, next) => {
-  const { name } = req.body;
+  const { name, email } = req.body;
 
   User.findByIdAndUpdate(
     req.user._id,
-    { name },
+    { name, email },
     { new: true, runValidators: true },
   )
     .then((user) => {
