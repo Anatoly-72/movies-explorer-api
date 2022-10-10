@@ -72,10 +72,11 @@ module.exports.createUser = (req, res, next) => {
 
 // PATCH /users/me — обновляем данные пользователя
 module.exports.updateProfile = (req, res, next) => {
+  const userId = req.user._id;
   const { name, email } = req.body;
 
   User.findByIdAndUpdate(
-    req.user._id,
+    userId,
     { name, email },
     { new: true, runValidators: true },
   )
