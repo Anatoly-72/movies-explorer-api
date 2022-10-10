@@ -4,8 +4,7 @@ const BadRequestError = require('../errors/bad-request-err');
 
 const joiSignUpScheme = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
+    name: Joi.string().min(2).max(30).required(),
     email: Joi.string()
       .required()
       .custom((value, helpers) => {

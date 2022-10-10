@@ -63,7 +63,7 @@ module.exports.createUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Ошибка валидации данных'));
       } else if (err.code === 11000) {
-        next(new ExistEmailError('Передан уже зарегистрированный email.'));
+        next(new ExistEmailError('Передан уже зарегистрированный email'));
       } else {
         next(err);
       }
@@ -84,12 +84,14 @@ module.exports.updateProfile = (req, res, next) => {
       if (!user) {
         throw new NotFoundError('Пользователь не найден');
       } else {
-        res.send(user);
+        res.send({ data: user });
       }
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Ошибка валидации данных'));
+      } else if (err.code === 11000) {
+        next(new ExistEmailError('Передан уже зарегистрированный email'));
       } else {
         next(err);
       }
