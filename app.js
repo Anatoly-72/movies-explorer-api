@@ -9,7 +9,7 @@ const routes = require('./routes/index');
 const centralErrorHandler = require('./middlewares/central-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT, MONGO_URL } = process.env;
 
 const app = express();
 
@@ -45,7 +45,7 @@ app.use(centralErrorHandler);
 
 // Последовательное подключение: сначала база, затем порт
 async function main() {
-  await mongoose.connect('mongodb://localhost:27017/moviesdb', {
+  await mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: false,
   });
