@@ -8,8 +8,10 @@ const { errors } = require('celebrate');
 const routes = require('./routes/index');
 const centralErrorHandler = require('./middlewares/central-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const { limiter } = require('./middlewares/rateLimiter');
+const { DATABASE } = require('./utils/utils');
 
-const { PORT, MONGO_URL } = process.env;
+const { PORT = 3000, MONGO_URL = DATABASE } = process.env;
 
 const app = express();
 
@@ -25,6 +27,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // подключаем логгер запросов
 app.use(requestLogger);
+
+// ограничиваем количество запросов для одного IP
+app.use(limiter);
 
 // Код для краш-теста (сервер должен подняться после падения сам, исп. pm2)
 app.get('/crash-test', () => {
