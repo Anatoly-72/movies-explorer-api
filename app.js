@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
 
 // ограничиваем количество запросов для одного IP
-app.use(limiter);
+// app.use(limiter);
 
 // Код для краш-теста (сервер должен подняться после падения сам, исп. pm2)
 app.get('/crash-test', () => {
