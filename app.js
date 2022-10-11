@@ -9,9 +9,9 @@ const routes = require('./routes/index');
 const centralErrorHandler = require('./middlewares/central-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { limiter } = require('./middlewares/rateLimiter');
-// const { DATABASE } = require('./utils/utils');
+const { DATABASE } = require('./utils/utils');
 
-const { PORT, MONGO_URL } = process.env;
+const { PORT = 3000, MONGO_URL = DATABASE } = process.env;
 
 const app = express();
 
