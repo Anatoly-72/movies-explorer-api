@@ -32,11 +32,11 @@ app.use(requestLogger);
 app.use(limiter);
 
 // Код для краш-теста (сервер должен подняться после падения сам, исп. pm2)
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 // подключаем роуты
 app.use(routes);
