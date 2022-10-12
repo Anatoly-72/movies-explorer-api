@@ -17,7 +17,7 @@
 
 ## Ссылки
 
-IP 84.201.157.181
+IP 51.250.91.225
 
 Backend: https://api.anatoly72.nomoredomains.icu
 
